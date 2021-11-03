@@ -196,7 +196,7 @@ class RawNet(nn.Module):
 			
        
         self.sig = nn.Sigmoid()
-        self.logsoftmax = nn.LogSoftmax(dim=1)
+        
         
     def forward(self, x, y = None,is_test=False):
         
