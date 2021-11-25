@@ -196,9 +196,9 @@ class RawNet(nn.Module):
 			
        
         self.sig = nn.Sigmoid()
-        self.logsoftmax = nn.LogSoftmax(dim=1)
         
-    def forward(self, x, y = None):
+        
+    def forward(self, x, y = None,is_test=False):
         
         
         nb_samp = x.shape[0]
@@ -255,9 +255,14 @@ class RawNet(nn.Module):
         x = x[:,-1,:]
         x = self.fc1_gru(x)
         x = self.fc2_gru(x)
-        output=self.logsoftmax(x)
-      
-        return output
+	
+        if not is_test:
+            output = x
+            return output
+
+        else:
+            output=F.softmax(x,dim=1)
+            return output
         
         
 
