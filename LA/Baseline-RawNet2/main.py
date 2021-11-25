@@ -42,7 +42,7 @@ def produce_evaluation_file(dataset, model, device, save_path):
         score_list = []  
         batch_size = batch_x.size(0)
         batch_x = batch_x.to(device)
-        batch_out = model(batch_x)
+        batch_out = model(batch_x,is_test=True)
         batch_score = (batch_out[:, 1]
                        ).data.cpu().numpy().ravel()
         # add outputs
@@ -95,7 +95,6 @@ if __name__ == '__main__':
     parser.add_argument('--database_path', type=str, default='/your/path/to/data/ASVspoof_database/', help='Change this to user\'s full directory address of LA database (ASVspoof2019- for training & development (used as validation), ASVspoof2021 for evaluation scores). We assume that all three ASVspoof 2019 LA train, LA dev and ASVspoof2021 LA eval data folders are in the same database_path directory.')
     '''
     % database_path/
-    %   |- LA
     %      |- ASVspoof2021_LA_eval/flac
     %      |- ASVspoof2019_LA_train/flac
     %      |- ASVspoof2019_LA_dev/flac
